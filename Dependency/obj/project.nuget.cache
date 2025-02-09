@@ -1,8 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "5CA8V/iv/NQAzompP00oT8L2P7ChQiWUoPNvz5blQcTXiFHJpt6qby7Qs7TMOZNE68cxqz5QN2wKoom2PKtolQ==",
+  "dgSpecHash": "/DuHJ/v6SDB85nM9QIXqcqyK0jWgSkXdixgPjfjAEUc4IsmDvV+OmL7IBUhP0keoRFA4J7rCdOQwkgfNYhA2lg==",
   "success": true,
   "projectFilePath": "/Users/doomowenok/Projects/empire-telegram-app/Dependency/Dependency.csproj",
-  "expectedPackageFiles": [],
+  "expectedPackageFiles": [
+    "/Users/doomowenok/.nuget/packages/castle.core/5.1.1/castle.core.5.1.1.nupkg.sha512",
+    "/Users/doomowenok/.nuget/packages/nsubstitute/5.3.0/nsubstitute.5.3.0.nupkg.sha512",
+    "/Users/doomowenok/.nuget/packages/system.diagnostics.eventlog/6.0.0/system.diagnostics.eventlog.6.0.0.nupkg.sha512"
+  ],
   "logs": []
 }

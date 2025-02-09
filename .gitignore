@@ -13,6 +13,9 @@
 /Game/[Ll]ogs/
 /Game/[Uu]ser[Ss]ettings/
 
+/Dependency/bin/
+/Dependency/obj/
+
 # MemoryCaptures can get excessive in size.
 # They also could contain extremely sensitive data
 /Game/[Mm]emoryCaptures/
