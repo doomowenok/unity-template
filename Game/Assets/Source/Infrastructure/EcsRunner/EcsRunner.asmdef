@@ -2,7 +2,8 @@
     "name": "EcsRunner",
     "rootNamespace": "",
     "references": [
-        "Scellecs.Morpeh"
+        "Scellecs.Morpeh",
+        "VContainer"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

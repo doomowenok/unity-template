@@ -2,9 +2,15 @@ using Scellecs.Morpeh;
 
 namespace Infrastructure.EcsRunner
 {
-    // TODO::Use container for resolving systems.
     public sealed class WorldBuilder 
     {
+        private readonly ISystemsFactory _systemsFactory;
+
+        public WorldBuilder(ISystemsFactory systemsFactory)
+        {
+            _systemsFactory = systemsFactory;
+        }
+
         private WorldData _currentWorldData;
 
         public WorldBuilder CreateWorld(WorldType type)
@@ -18,8 +24,7 @@ namespace Infrastructure.EcsRunner
 
         public WorldBuilder WithSystem<TSystem>() where TSystem : class, ISystem, new()
         {
-            // TODO::Add resolved systems from container.
-            _currentWorldData.Systems.AddSystem<TSystem>(new TSystem());
+            _currentWorldData.Systems.AddSystem(_systemsFactory.CreateSystem<TSystem>());
             return this;
         }
 
