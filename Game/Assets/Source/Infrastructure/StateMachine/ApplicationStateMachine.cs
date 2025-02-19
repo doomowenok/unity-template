@@ -13,8 +13,11 @@ namespace Infrastructure.StateMachine
         private IExitableState _currentState;
         private bool _changeStateInProgress;
 
-        public void AddState<TState>(TState instance) where TState : class, IExitableState => 
+        public void AddState<TState>(TState instance) where TState : class, IExitableState
+        {
+            Debug.Log(instance);
             _states.Add(typeof(TState), instance);
+        } 
 
         public async UniTask Enter<TState>() where TState : class, IState
         {
@@ -48,6 +51,9 @@ namespace Infrastructure.StateMachine
             TState state = GetState<TState>();
             _currentState = state;
             Debug.Log($"Current state is {typeof(TState).Name}.");
+
+            _changeStateInProgress = false;
+            
             return state;
         }
 

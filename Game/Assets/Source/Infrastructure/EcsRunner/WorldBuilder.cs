@@ -2,7 +2,7 @@ using Scellecs.Morpeh;
 
 namespace Infrastructure.EcsRunner
 {
-    public sealed class WorldBuilder 
+    public sealed class WorldBuilder : IWorldBuilder
     {
         private readonly ISystemsFactory _systemsFactory;
 
@@ -13,7 +13,7 @@ namespace Infrastructure.EcsRunner
 
         private WorldData _currentWorldData;
 
-        public WorldBuilder CreateWorld(WorldType type)
+        public IWorldBuilder CreateWorld(WorldType type)
         {
             World world = World.Create();
             SystemsGroup group = world.CreateSystemsGroup();
@@ -22,7 +22,7 @@ namespace Infrastructure.EcsRunner
             return this;
         }
 
-        public WorldBuilder WithSystem<TSystem>() where TSystem : class, ISystem, new()
+        public IWorldBuilder WithSystem<TSystem>() where TSystem : class, ISystem
         {
             _currentWorldData.Systems.AddSystem(_systemsFactory.CreateSystem<TSystem>());
             return this;
@@ -30,6 +30,7 @@ namespace Infrastructure.EcsRunner
 
         public WorldData Build()
         {
+            _currentWorldData.World.AddSystemsGroup(0, _currentWorldData.Systems);
             return _currentWorldData;
         }
     }
