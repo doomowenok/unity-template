@@ -35,8 +35,7 @@ namespace Gameplay.Core
                 ref MoveComponent moveComponent = ref _movers.Get(mover);
                 MoveDirectionComponent directionComponent = _directions.Get(mover);
 
-                // moveComponent.CharacterController.Move(directionComponent.Direction);
-                moveComponent.GameObject.transform.position += directionComponent.Direction;
+                moveComponent.Rigidbody.linearVelocity = directionComponent.Direction * 5.0f;
             }
         }
 

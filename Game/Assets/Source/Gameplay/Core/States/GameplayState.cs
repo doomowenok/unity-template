@@ -24,9 +24,10 @@ namespace Gameplay.Core
              await _sceneLoader.LoadSceneAsync(sceneName, onComplete: () => CreateGameWorld());
         }
 
-        public async UniTask Exit()
+        public UniTask Exit()
         {
-            // _world.World.Dispose();
+            _world.World.Dispose();
+            return UniTask.CompletedTask;
         }
         
         private void CreateGameWorld()

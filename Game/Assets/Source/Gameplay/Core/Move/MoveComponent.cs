@@ -11,7 +11,7 @@ namespace Gameplay.Core
     [Serializable]
     public struct MoveComponent : IComponent
     {
-        public CharacterController CharacterController;
+        public Rigidbody Rigidbody;
         public GameObject GameObject;
     }
 }
