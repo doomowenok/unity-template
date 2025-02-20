@@ -3,6 +3,7 @@ using Cysharp.Threading.Tasks;
 using Infrastructure.EcsRunner;
 using Infrastructure.SceneLoading;
 using Infrastructure.StateMachine.States;
+using Source.Gameplay.Core;
 
 namespace Gameplay.Core
 {
@@ -38,6 +39,7 @@ namespace Gameplay.Core
                         .WithSystem<InputSystem>()
                         .WithSystem<PlayerMoveDirectionSystem>()
                         .WithSystem<MovingSystem>()
+                        .WithSystem<PlayerThroughObjectsSystem>()
                         .Build();
         }
     }
