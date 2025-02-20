@@ -47,7 +47,10 @@ namespace Gameplay.Core
             GameObject spawnPoint = GameObject.FindWithTag("PlayerSpawnPoint");
             PlayerProvider playerInstance = UnityEngine.Object.Instantiate(_player, spawnPoint.transform.position, Quaternion.identity);
 
-            PlayerComponent playerComponent = new PlayerComponent();
+            PlayerComponent playerComponent = new PlayerComponent()
+            {
+                Camera = playerInstance.PlayerCamera
+            };
             MoveComponent moveComponent = new MoveComponent()
             {
                 Rigidbody = playerInstance.Rigidbody,

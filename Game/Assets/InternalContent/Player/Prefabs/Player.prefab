@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 3900357726251975976}
   - component: {fileID: 5461511454763333082}
   - component: {fileID: 8179791330793071604}
-  - component: {fileID: 1127984987076872892}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -99,24 +98,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a05c08b0752d42fe8e1adef102ea430, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  PlayerCamera: {fileID: 6421023411371202895}
   Rigidbody: {fileID: 3900357726251975976}
---- !u!114 &1127984987076872892
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1891608688793018809}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: daef39846895c4279b96970546d6ee84, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  WatchThroughMaterial: {fileID: 2100000, guid: 3421db0cce36944439f02bc37257caed, type: 2}
-  Camera: {fileID: 6421023411371202895}
-  Mask:
-    serializedVersion: 2
-    m_Bits: 4294967295
 --- !u!1 &3932640126312243014
 GameObject:
   m_ObjectHideFlags: 0
