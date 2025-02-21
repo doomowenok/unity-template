@@ -764,7 +764,7 @@ PlayerSettings:
   webGLCloseOnQuit: 0
   webWasm2023: 0
   scriptingDefineSymbols:
-    Android: MORPEH;MORPEH_BURST
+    Android: MORPEH;MORPEH_BURST;ODIN_INSPECTOR;ODIN_INSPECTOR_3;ODIN_INSPECTOR_3_1
     Standalone: MORPEH;MORPEH_BURST
   additionalCompilerArguments: {}
   platformArchitecture: {}

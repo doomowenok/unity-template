@@ -1,23 +1,16 @@
-using System;
 using Cysharp.Threading.Tasks;
-using Infrastructure.EcsRunner;
 using Infrastructure.SceneLoading;
 using Infrastructure.StateMachine.States;
-using Source.Gameplay.Core;
 
 namespace Gameplay.Core
 {
     public sealed class GameplayState : IPayloadState<string>
     {
         private readonly ISceneLoader _sceneLoader;
-        private readonly IWorldBuilder _worldBuilder;
 
-        private WorldData _world;
-
-        public GameplayState(ISceneLoader sceneLoader, IWorldBuilder worldBuilder)
+        public GameplayState(ISceneLoader sceneLoader)
         {
             _sceneLoader = sceneLoader;
-            _worldBuilder = worldBuilder;
         }
         
         public async UniTask Enter(string sceneName)
@@ -27,20 +20,12 @@ namespace Gameplay.Core
 
         public UniTask Exit()
         {
-            _world.World.Dispose();
             return UniTask.CompletedTask;
         }
         
         private void CreateGameWorld()
         {
-            _world = _worldBuilder
-                        .CreateWorld(WorldType.Gameplay)
-                        .WithSystem<PlayerCreationSystem>()
-                        .WithSystem<InputSystem>()
-                        .WithSystem<PlayerMoveDirectionSystem>()
-                        .WithSystem<MovingSystem>()
-                        .WithSystem<PlayerThroughObjectsSystem>()
-                        .Build();
+            
         }
     }
 }

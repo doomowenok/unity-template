@@ -1,14 +1,13 @@
 using VContainer;
 using VContainer.Unity;
-using Gameplay.Core.Input.Installers;
 using Infrastructure.Pool.Installers;
 using Infrastructure.Resource.Installers;
 using Infrastructure.SceneLoading.Installers;
 using Infrastructure.StateMachine.Installers;
 using Infrastructure.MVVM.Installers;
-using Infrastructure.EcsRunner.Installers;
 using Infrastructure.Config.Installers;
 using Gameplay.Core;
+using Infrastructure.Time.Installers;
 
 namespace Gameplay.Boot
 {
@@ -32,13 +31,11 @@ namespace Gameplay.Boot
             InstallBindings<ResourcesInstaller>(builder);
             InstallBindings<ObjectPoolInstaller>(builder);
             InstallBindings<MvvmInstaller>(builder);
-            InstallBindings<EcsRunnerInstaller>(builder);
             InstallBindings<ConfigProviderInstaller>(builder);
+            InstallBindings<TimeServiceInstaller>(builder);
 
             // Core
-            InstallBindings<InputInstaller>(builder);
-            InstallBindings<MoveInstaller>(builder);
-            InstallBindings<PlayerInstaller>(builder);
+            
         }
 
         private static void InstallBindings<TInstaller>(IContainerBuilder builder) where TInstaller : IInstaller,  new() 

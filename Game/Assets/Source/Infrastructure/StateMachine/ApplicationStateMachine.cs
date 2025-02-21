@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
-using Infrastructure.StateMachine.States;
 using Cysharp.Threading.Tasks;
+using Infrastructure.StateMachine.States;
 using UnityEngine;
 
 namespace Infrastructure.StateMachine
