@@ -4,6 +4,7 @@ using UnityEngine.InputSystem;
 
 namespace Gameplay.Core
 {
+    // TODO::Move to something like ITickable for read input every frame instead of just single event.
     public class PlayerController
     {
         private PlayerControls _playerControls;
@@ -14,6 +15,7 @@ namespace Gameplay.Core
             _playerControls = new PlayerControls();
             _character = controlledCharacter;
             
+            // BUG::Not working for my purposes.
             _playerControls.Player.Move.performed += MovePlayer;
         }
 
@@ -34,7 +36,9 @@ namespace Gameplay.Core
 
         private void MovePlayer(InputAction.CallbackContext context)
         {
-            Vector3 direction = context.ReadValue<Vector2>();
+            Debug.Log($"[PLAYER CONTROLLER]::Move performed.");
+            Vector2 input = context.ReadValue<Vector2>();
+            Vector3 direction = new Vector3(input.x, 0, input.y);
             _character.Move(direction);
         }
     }

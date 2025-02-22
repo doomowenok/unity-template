@@ -1,3 +1,4 @@
+using Gameplay.Services.Physics;
 using Infrastructure.Pool;
 using Infrastructure.Time;
 using UnityEngine;
@@ -9,15 +10,19 @@ namespace Gameplay.Core
     {
         [SerializeField] private Rigidbody _rigidbody;
 
-        private ITimeService _time;
+        protected IObjectCollisionController ObjectCollisionController { get; private set; }
+        protected ITimeService Time { get; private set; }
+        
         private float _moveSpeed;
 
         GameObject IPoolable.PoolObject => gameObject;
 
+
         [Inject]
-        private void Construct(ITimeService time)
+        private void Construct(ITimeService time, IObjectCollisionController objectCollisionController)
         {
-            _time = time;
+            Time = time;
+            ObjectCollisionController = objectCollisionController;
         }
 
         public virtual void Initialize(in CharacterData data)
@@ -27,7 +32,9 @@ namespace Gameplay.Core
 
         public virtual void Move(Vector3 direction)
         {
-            _rigidbody.linearVelocity = direction * _moveSpeed * _time.DeltaTime;
+            Vector3 velocity = direction * _moveSpeed * Time.DeltaTime;
+            Debug.Log($"[CHARACTER]::Move {direction} and velocity {velocity}.");
+            _rigidbody.linearVelocity = velocity;
         }
 
         public virtual void Release()

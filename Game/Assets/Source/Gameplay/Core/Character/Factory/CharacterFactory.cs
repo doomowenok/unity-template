@@ -3,6 +3,7 @@ using Infrastructure.Config;
 using Infrastructure.Pool;
 using Infrastructure.Resource;
 using UnityEngine;
+using VContainer;
 
 namespace Gameplay.Core
 {
@@ -11,15 +12,18 @@ namespace Gameplay.Core
         private readonly IResourceProvider _resourceProvider;
         private readonly IConfigProvider _configProvider;
         private readonly IObjectPool _objectPool;
+        private readonly IObjectResolver _context;
 
         public CharacterFactory(
             IResourceProvider resourceProvider,
             IConfigProvider configProvider,
-            IObjectPool objectPool)
+            IObjectPool objectPool,
+            IObjectResolver context)
         {
             _resourceProvider = resourceProvider;
             _configProvider = configProvider;
             _objectPool = objectPool;
+            _context = context;
         }
         
         public async UniTask<TCharacter> CreateCharacter<TCharacter>(
@@ -28,14 +32,13 @@ namespace Gameplay.Core
             Quaternion rotation,
             Transform parent = null) where TCharacter : BaseCharacter
         {
-            CharacterData data = _configProvider.GetConfig<CharactersConfig>().Characters[type];
+            CharacterData data = _configProvider.GetConfig<CharactersConfig>("Characters").Characters[type];
 
-            TCharacter character = null;
-            
-            if (!_objectPool.TryRent<TCharacter>(out character))
+            if (!_objectPool.TryRent<TCharacter>(out TCharacter character))
             {
                 TCharacter prefab = await _resourceProvider.Get<TCharacter>(data.PrefabName);
                 character = Object.Instantiate(prefab);
+                _context.Inject(character);
             }
             
             character.Initialize(data);
@@ -46,7 +49,7 @@ namespace Gameplay.Core
                 
             character.gameObject.SetActive(true);
 
-            return null;
+            return character;
         } 
     }
 }

@@ -50,9 +50,18 @@ MonoBehaviour:
     - Name: $v
       Entry: 7
       Data: Gameplay.Core.CharacterData, Gameplay
+    - Name: CharacterType
+      Entry: 3
+      Data: 1
+    - Name: PrefabName
+      Entry: 1
+      Data: Player
     - Name: MoveSpeed
       Entry: 4
       Data: 10
+    - Name: TimeForOrderAction
+      Entry: 4
+      Data: 5
     - Name: 
       Entry: 8
       Data: 

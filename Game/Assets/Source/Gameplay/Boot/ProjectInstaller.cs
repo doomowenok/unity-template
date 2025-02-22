@@ -7,6 +7,8 @@ using Infrastructure.StateMachine.Installers;
 using Infrastructure.MVVM.Installers;
 using Infrastructure.Config.Installers;
 using Gameplay.Core;
+using Gameplay.Services.Physics;
+using Infrastructure.IdGenerator.Installers;
 using Infrastructure.Time.Installers;
 
 namespace Gameplay.Boot
@@ -23,7 +25,6 @@ namespace Gameplay.Boot
         {
             // States
             builder.Register<BootState>(Lifetime.Singleton).AsSelf();
-            builder.Register<GameplayState>(Lifetime.Singleton).AsSelf();
 
             // Infrastructure
             InstallBindings<StateMachineInstaller>(builder);
@@ -33,9 +34,15 @@ namespace Gameplay.Boot
             InstallBindings<MvvmInstaller>(builder);
             InstallBindings<ConfigProviderInstaller>(builder);
             InstallBindings<TimeServiceInstaller>(builder);
+            InstallBindings<IdGeneratorInstaller>(builder);
 
+            // Services
+            InstallBindings<PhysicsInstaller>(builder);
+            
             // Core
+            InstallBindings<GameplayInstaller>(builder);
             InstallBindings<CharactersInstaller>(builder);
+            InstallBindings<PlayerInstaller>(builder);
         }
 
         private static void InstallBindings<TInstaller>(IContainerBuilder builder) where TInstaller : IInstaller,  new() 
