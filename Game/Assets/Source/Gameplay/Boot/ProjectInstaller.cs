@@ -35,7 +35,7 @@ namespace Gameplay.Boot
             InstallBindings<TimeServiceInstaller>(builder);
 
             // Core
-            
+            InstallBindings<CharactersInstaller>(builder);
         }
 
         private static void InstallBindings<TInstaller>(IContainerBuilder builder) where TInstaller : IInstaller,  new() 

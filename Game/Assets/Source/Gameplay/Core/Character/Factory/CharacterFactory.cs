@@ -4,9 +4,9 @@ using Infrastructure.Pool;
 using Infrastructure.Resource;
 using UnityEngine;
 
-namespace Gameplay.Core.Factory
+namespace Gameplay.Core
 {
-    public sealed class CharacterFactory 
+    public sealed class CharacterFactory : ICharacterFactory
     {
         private readonly IResourceProvider _resourceProvider;
         private readonly IConfigProvider _configProvider;
@@ -22,27 +22,29 @@ namespace Gameplay.Core.Factory
             _objectPool = objectPool;
         }
         
-        // TODO::WIP!
         public async UniTask<TCharacter> CreateCharacter<TCharacter>(
             CharacterType type,
             Vector3 position,
             Quaternion rotation,
             Transform parent = null) where TCharacter : BaseCharacter
         {
-            CharactersConfig config = _configProvider.GetConfig<CharactersConfig>();
+            CharacterData data = _configProvider.GetConfig<CharactersConfig>().Characters[type];
+
+            TCharacter character = null;
             
-            if (_objectPool.TryRent<TCharacter>(out TCharacter character))
+            if (!_objectPool.TryRent<TCharacter>(out character))
             {
-                character.Initialize(config.Characters[type]);
-                
-                character.transform.position = position;
-                character.transform.rotation = rotation;
-                character.transform.parent = parent;
-                
-                character.gameObject.SetActive(true);
-                
-                return character;
+                TCharacter prefab = await _resourceProvider.Get<TCharacter>(data.PrefabName);
+                character = Object.Instantiate(prefab);
             }
+            
+            character.Initialize(data);
+                
+            character.transform.position = position;
+            character.transform.rotation = rotation;
+            character.transform.parent = parent;
+                
+            character.gameObject.SetActive(true);
 
             return null;
         } 
