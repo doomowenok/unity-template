@@ -43,6 +43,7 @@ namespace Gameplay.Boot
             InstallBindings<GameplayInstaller>(builder);
             InstallBindings<CharactersInstaller>(builder);
             InstallBindings<PlayerInstaller>(builder);
+            InstallBindings<InventoryInstaller>(builder);
         }
 
         private static void InstallBindings<TInstaller>(IContainerBuilder builder) where TInstaller : IInstaller,  new() 

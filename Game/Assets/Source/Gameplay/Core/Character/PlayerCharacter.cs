@@ -1,4 +1,5 @@
 using UnityEngine;
+using VContainer;
 
 namespace Gameplay.Core
 {
@@ -6,6 +7,14 @@ namespace Gameplay.Core
     {
         private float _timeForOderAction;
         private float _timeAtPoint;
+
+        private Inventory _inventory;
+
+        [Inject]
+        private void Construct(Inventory inventory)
+        {
+            _inventory = inventory;
+        }
 
         public override void Initialize(in CharacterData data)
         {
@@ -24,8 +33,10 @@ namespace Gameplay.Core
 
                 if (_timeAtPoint >= _timeForOderAction)
                 {
+                    OrderPoint orderPoint = ObjectCollisionController.Get<OrderPoint>(other.gameObject.GetInstanceID());
                     Debug.Log($"[PLAYER]::Perform action with order.");
                     ResetTimeAtPoint();
+                    _inventory.AddOrder(orderPoint.Order, 1);
                 }
             }
         }

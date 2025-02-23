@@ -21,5 +21,10 @@ namespace Gameplay.Services.Physics
             
             return instance is T;
         }
+
+        public T Get<T>(int id) where T : MonoBehaviour
+        {
+            return _registeredObjects[id] as T;
+        }
     }
 }
