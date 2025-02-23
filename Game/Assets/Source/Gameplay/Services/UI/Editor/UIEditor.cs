@@ -9,7 +9,8 @@ namespace Gameplay.Services.UI
     {
         private const string UIViewTypePath = "Assets/Source/Gameplay/Services/UI/UIViewType.cs";
         private const string UIServicePath = "Assets/Source/Gameplay/Services/UI/UIService.cs";
-        
+
+        private const string InfoMessageAfterAddingNewType = "Don't forget to add prefab name to UIConfig."; 
         
         private string _windowType = "";
         private string _baseViewName = "";
@@ -32,6 +33,7 @@ namespace Gameplay.Services.UI
             {
                 CreateUIViewType();
                 UpdateUIService();
+                EditorUtility.DisplayDialog(nameof(UIEditor), InfoMessageAfterAddingNewType, "ОК");
             }
         }
 
@@ -58,20 +60,20 @@ namespace Gameplay.Services.UI
             {
                 result.AppendLine(lines[i]);
                 
-                if (lines[i - 1].Contains(placesForUpdating) && lines[i].Contains("{"))
+                if (i > 1 && lines[i - 1].Contains(placesForUpdating) && lines[i].Contains("{"))
                 {
                     if (count == 0)
                     {
-                        result.AppendLine("\t\t\tcase UIViewType." + _windowType + ":");
-                        result.AppendLine($"\t\t\t\tawait Subscribe<{_baseViewName}, {_viewModelName}>(config.UIData[viewType].Name);");
-                        result.AppendLine($"\t\t\t\tbreak;");
+                        result.AppendLine("\t\t\t\tcase UIViewType." + _windowType + ":");
+                        result.AppendLine($"\t\t\t\t\tawait Subscribe<{_baseViewName}, {_viewModelName}>(config.UIData[viewType].Name);");
+                        result.AppendLine($"\t\t\t\t\tbreak;");
                         count++;
                     }
                     else
                     {
-                        result.AppendLine("\t\t\tcase UIViewType." + _windowType + ":");
-                        result.AppendLine($"\t\t\t\tUnsubscribe<{_baseViewName}, {_viewModelName}>(config.UIData[viewType].Name);");
-                        result.AppendLine("\t\t\t\tbreak;");
+                        result.AppendLine("\t\t\t\tcase UIViewType." + _windowType + ":");
+                        result.AppendLine($"\t\t\t\t\tUnsubscribe<{_baseViewName}, {_viewModelName}>(config.UIData[viewType].Name);");
+                        result.AppendLine("\t\t\t\t\tbreak;");
                     }
                 }
             }

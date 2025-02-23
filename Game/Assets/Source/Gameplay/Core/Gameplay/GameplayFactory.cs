@@ -26,9 +26,9 @@ namespace Gameplay.Core
             await CreatePlayer();
         }
 
-        public async UniTask DisposeGameWorld()
+        public UniTask DisposeGameWorld()
         {
-            
+            return UniTask.CompletedTask;
         }
 
         private void InitializeOrderPoints()

@@ -20,9 +20,9 @@ namespace Gameplay.Boot
             await _stateMachine.Enter<GameplayState, string>("Game");
         }
 
-        public async UniTask Exit()
+        public UniTask Exit()
         {
-            
+            return UniTask.CompletedTask;
         }
     }
 }
