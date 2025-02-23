@@ -33,7 +33,6 @@ namespace Gameplay.Core
         public virtual void Move(Vector3 direction)
         {
             Vector3 velocity = direction * _moveSpeed * Time.DeltaTime;
-            Debug.Log($"[CHARACTER]::Move {direction} and velocity {velocity}.");
             _rigidbody.linearVelocity = velocity;
         }
 

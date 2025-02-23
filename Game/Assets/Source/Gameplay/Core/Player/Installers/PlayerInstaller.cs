@@ -7,7 +7,7 @@ namespace Gameplay.Core
     {
         public void Install(IContainerBuilder builder)
         {
-            builder.Register<PlayerController>(Lifetime.Singleton);
+            builder.Register<PlayerController>(Lifetime.Singleton).AsSelf().AsImplementedInterfaces();
         }
     }
 }

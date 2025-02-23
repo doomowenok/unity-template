@@ -1,31 +1,33 @@
 using Gameplay.Core.Input;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using VContainer.Unity;
 
 namespace Gameplay.Core
 {
     // TODO::Move to something like ITickable for read input every frame instead of just single event.
-    public class PlayerController
+    public class PlayerController : ITickable
     {
         private PlayerControls _playerControls;
         private BaseCharacter _character;
+
+        private bool _enabled;
 
         public void Initialize(BaseCharacter controlledCharacter)
         {
             _playerControls = new PlayerControls();
             _character = controlledCharacter;
-            
-            // BUG::Not working for my purposes.
-            _playerControls.Player.Move.performed += MovePlayer;
         }
 
         public void Enable()
         {
             _playerControls.Enable();
+            _enabled = true;
         }
 
         public void Disable()
         {
+            _enabled = false;
             _playerControls.Disable();
         }
 
@@ -34,10 +36,19 @@ namespace Gameplay.Core
             
         }
 
-        private void MovePlayer(InputAction.CallbackContext context)
+        void ITickable.Tick()
         {
-            Debug.Log($"[PLAYER CONTROLLER]::Move performed.");
-            Vector2 input = context.ReadValue<Vector2>();
+            if (!_enabled)
+            {
+                return;
+            }
+            
+            MovePlayer();    
+        }
+
+        private void MovePlayer()
+        {
+            Vector2 input = _playerControls.Player.Move.ReadValue<Vector2>();
             Vector3 direction = new Vector3(input.x, 0, input.y);
             _character.Move(direction);
         }
