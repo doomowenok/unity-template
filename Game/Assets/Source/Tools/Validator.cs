@@ -14,37 +14,17 @@ namespace Tools
         [MenuItem("Tools/Scenes Validation/Missing Components")]
         public static void FindMissingComponents()
         {
-            string[] scenePaths = AssetDatabase
-                .FindAssets("t:Scene", new[] { "Assets" })
-                .Select(AssetDatabase.GUIDToAssetPath)
-                .ToArray();
-
-            foreach (string sceneName in scenePaths)
+            foreach (Scene scene in GetAllProjectScenes())
             {
-                if (SceneManager.GetSceneByPath(sceneName).isLoaded)
-                {
-                    continue;
-                }
-                
-                Scene openScene = EditorSceneManager.OpenScene(sceneName, OpenSceneMode.Additive);
-                FindMissingComponents(openScene);
-                EditorSceneManager.CloseScene(openScene, true);
+                FindMissingComponents(scene);
             }
         }
 
         private static void FindMissingComponents(Scene scene)
         {
-            Queue<GameObject> gameObjectsQueue = new Queue<GameObject>(scene.GetRootGameObjects());
-
-            while (gameObjectsQueue.Count > 0)
+            foreach (var gameObject in GetAllGameObjects(scene))
             {
-                GameObject gameObject = gameObjectsQueue.Dequeue();
                 FindMissingComponent(gameObject, scene);
-
-                foreach (Transform child in gameObject.transform)
-                {
-                    gameObjectsQueue.Enqueue(child.gameObject);
-                }
             }
         }
 
@@ -55,6 +35,47 @@ namespace Tools
             if (hasMissingScript)
             {
                 Logger.LogWarning("💔", $"GameObject {gameObject.name} from scene {scene.name} has missing components.");     
+            }
+        }
+
+        private static IEnumerable<Scene> GetAllProjectScenes()
+        {
+            string[] scenePaths = AssetDatabase
+                .FindAssets("t:Scene", new[] { "Assets" })
+                .Select(AssetDatabase.GUIDToAssetPath)
+                .ToArray();
+            
+            foreach (string sceneName in scenePaths)
+            {
+                var scene = SceneManager.GetSceneByPath(sceneName);
+                
+                if (scene.isLoaded)
+                {
+                    yield return scene;
+                }
+                else
+                {
+                    Scene openScene = EditorSceneManager.OpenScene(sceneName, OpenSceneMode.Additive);
+                    yield return openScene;
+                    EditorSceneManager.CloseScene(openScene, true);
+                }
+            }
+        }
+
+        private static IEnumerable<GameObject> GetAllGameObjects(Scene scene)
+        {
+            Queue<GameObject> gameObjectsQueue = new Queue<GameObject>(scene.GetRootGameObjects());
+
+            while (gameObjectsQueue.Count > 0)
+            {
+                GameObject gameObject = gameObjectsQueue.Dequeue();
+                
+                yield return gameObject;
+
+                foreach (Transform child in gameObject.transform)
+                {
+                    gameObjectsQueue.Enqueue(child.gameObject);
+                }
             }
         }
     } 
