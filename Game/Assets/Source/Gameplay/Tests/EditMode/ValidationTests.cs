@@ -15,22 +15,13 @@ namespace Gameplay.Tests.EditMode
         [Test]
         public void ValidationTestsSimplePasses()
         {
-            bool missingComponentDetected = false;
-            
-            // Use the Assert class to test conditions
-            foreach (Scene scene in GetAllProjectScenes())
-            {
-                foreach (var gameObject in GetAllGameObjects(scene))
-                {
-                    if (HasMissingComponent(gameObject))
-                    {
-                        missingComponentDetected = true;
-                        Logger.LogError("💔", $"GameObject {gameObject.name} from scene {scene.name} has missing components.");     
-                    }
-                }
-            }
-            
-            Assert.That(missingComponentDetected, Is.False);
+            IEnumerable<string> errors = 
+                from scene in GetAllProjectScenes()
+                from gameObject in GetAllGameObjects(scene)
+                where HasMissingComponent(gameObject)
+                select $"GameObject {gameObject.name} from scene {scene.name} has missing component(s).";
+
+            Assert.That(errors, Is.Empty);
         }
         
         private static ILogger Logger => Debug.unityLogger;
