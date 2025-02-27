@@ -12,19 +12,24 @@ namespace Gameplay.Tests.EditMode
     public class ValidationTests
     {
         // A Test behaves as an ordinary method
-        [Test]
-        public void AllGameObjectsShouldNotHaveMissingScripts()
+        [TestCase("Assets/Scenes/Boot.unity")]
+        [TestCase("Assets/Scenes/Game.unity")]
+        public void AllGameObjectsShouldNotHaveMissingScripts(string scenePath)
         {
-            IEnumerable<string> errors = 
-                from scene in GetAllProjectScenes()
-                from gameObject in GetAllGameObjects(scene)
-                where HasMissingComponent(gameObject)
-                select $"GameObject {gameObject.name} from scene {scene.name} has missing component(s).";
+            Scene scene = EditorSceneManager.OpenScene(scenePath, OpenSceneMode.Additive);
+            
+            IEnumerable<string> gameObjectsWithMissingScripts = 
+                GetAllGameObjects(scene)
+                .Where(HasMissingComponent)
+                .Select(gameObject => gameObject.name)
+                .ToList();
+            
+            EditorSceneManager.CloseScene(scene, true);
 
-            errors.Should().BeEmpty();
+            gameObjectsWithMissingScripts.Should().BeEmpty();
         }
 
-        private static IEnumerable<Scene> GetAllProjectScenes()
+        private static IEnumerable<Scene> GetProjectScenes()
         {
             string[] scenePaths = AssetDatabase
                 .FindAssets("t:Scene", new[] { "Assets" })
