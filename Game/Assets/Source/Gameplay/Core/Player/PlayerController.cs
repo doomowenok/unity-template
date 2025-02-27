@@ -45,7 +45,7 @@ namespace Gameplay.Core
                 return;
             }
             
-            MovePlayer();    
+            MovePlayer();
         }
 
         private void MovePlayer()
