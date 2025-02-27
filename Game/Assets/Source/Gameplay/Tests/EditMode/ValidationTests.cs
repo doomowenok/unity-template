@@ -11,9 +11,7 @@ namespace Gameplay.Tests.EditMode
 {
     public class ValidationTests
     {
-        // A Test behaves as an ordinary method
-        [TestCase("Assets/Scenes/Boot.unity")]
-        [TestCase("Assets/Scenes/Game.unity")]
+        [TestCaseSource(nameof(AllScenePaths))]
         public void AllGameObjectsShouldNotHaveMissingScripts(string scenePath)
         {
             Scene scene = EditorSceneManager.OpenScene(scenePath, OpenSceneMode.Additive);
@@ -21,7 +19,8 @@ namespace Gameplay.Tests.EditMode
             IEnumerable<string> gameObjectsWithMissingScripts = 
                 GetAllGameObjects(scene)
                 .Where(HasMissingComponent)
-                .Select(gameObject => gameObject.name)
+                .GroupBy(gameObject => gameObject.name)
+                .Select(grouping => $"{grouping.Key} ({grouping.Count()})")
                 .ToList();
             
             EditorSceneManager.CloseScene(scene, true);
@@ -29,28 +28,11 @@ namespace Gameplay.Tests.EditMode
             gameObjectsWithMissingScripts.Should().BeEmpty();
         }
 
-        private static IEnumerable<Scene> GetProjectScenes()
+        private static IEnumerable<string> AllScenePaths()
         {
-            string[] scenePaths = AssetDatabase
+            return AssetDatabase
                 .FindAssets("t:Scene", new[] { "Assets" })
-                .Select(AssetDatabase.GUIDToAssetPath)
-                .ToArray();
-            
-            foreach (string sceneName in scenePaths)
-            {
-                var scene = SceneManager.GetSceneByPath(sceneName);
-                
-                if (scene.isLoaded)
-                {
-                    yield return scene;
-                }
-                else
-                {
-                    Scene openScene = EditorSceneManager.OpenScene(sceneName, OpenSceneMode.Additive);
-                    yield return openScene;
-                    EditorSceneManager.CloseScene(openScene, true);
-                }
-            }
+                .Select(AssetDatabase.GUIDToAssetPath);
         }
 
         private static IEnumerable<GameObject> GetAllGameObjects(Scene scene)
