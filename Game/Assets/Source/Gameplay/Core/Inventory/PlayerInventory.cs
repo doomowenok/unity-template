@@ -1,12 +1,12 @@
 using System.Collections.Generic;
-using UnityEngine;
 
 namespace Gameplay.Core
 {
-    public class Inventory
+    public class PlayerInventory : IInventory
     {
         private readonly Dictionary<OrderType, int> _orders = new Dictionary<OrderType, int>(16);
-        
+        public int AllOrdersAmount { get; private set; }
+
         public void AddOrder(OrderType order, int amount)
         {
             if (IsFull())
@@ -23,8 +23,8 @@ namespace Gameplay.Core
             {
                 _orders.Add(order, amount);
             }
-
-            Debug.Log($"[INVENTORY]::Add order {order} with amount {amount}. Current amount is {_orders[order]}.");
+            
+            AllOrdersAmount += amount;
         }
 
         public void RemoveOrder(OrderType order, int amount)
@@ -40,7 +40,7 @@ namespace Gameplay.Core
             }
         }
 
-        private bool IsFull()
+        public bool IsFull()
         {
             return false;
         }

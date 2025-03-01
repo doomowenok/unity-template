@@ -8,12 +8,12 @@ namespace Gameplay.Core
         private float _timeForOderAction;
         private float _timeAtPoint;
 
-        private Inventory _inventory;
+        private PlayerInventory _playerInventory;
 
         [Inject]
-        private void Construct(Inventory inventory)
+        private void Construct(PlayerInventory playerInventory)
         {
-            _inventory = inventory;
+            _playerInventory = playerInventory;
         }
 
         public override void Initialize(in CharacterData data)
@@ -36,7 +36,7 @@ namespace Gameplay.Core
                     OrderPoint orderPoint = ObjectCollisionController.Get<OrderPoint>(other.gameObject.GetInstanceID());
                     Debug.Log($"[PLAYER]::Perform action with order.");
                     ResetTimeAtPoint();
-                    _inventory.AddOrder(orderPoint.Order, 1);
+                    _playerInventory.AddOrder(orderPoint.Order, 1);
                 }
             }
         }

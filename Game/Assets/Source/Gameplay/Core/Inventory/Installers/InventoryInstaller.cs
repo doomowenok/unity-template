@@ -7,7 +7,7 @@ namespace Gameplay.Core
     {
         public void Install(IContainerBuilder builder)
         {
-            builder.Register<Inventory>(Lifetime.Transient).AsSelf();
+            builder.Register<PlayerInventory>(Lifetime.Transient).AsSelf();
         }
     }
 }
