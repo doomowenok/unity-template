@@ -50,6 +50,11 @@ namespace Infrastructure.WorldManaging
             _worldTypeInCreation = default;
         }
 
+        public void SwitchTo(WorldType type)
+        {
+            // _worlds[type].CanUpdate = true;
+        }
+
         void ITickable.Tick()
         {
             if (_worlds.Count == 0)
