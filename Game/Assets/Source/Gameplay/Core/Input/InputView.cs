@@ -55,13 +55,7 @@ namespace Gameplay.Core
     // TODO::WIP hide joystick when innactive.
     public sealed class JoystickVisibility : ITickable
     {
-        private readonly PlayerController _playerController;
         public INotifyProperty<bool> AnyInput { get; } = new NotifyProperty<bool>();
-
-        public JoystickVisibility(PlayerController playerController)
-        {
-            _playerController = playerController;
-        }
 
         void ITickable.Tick()
         {
