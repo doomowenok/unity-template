@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using Infrastructure.Time;
 using Scellecs.Morpeh;
+using VContainer;
 using VContainer.Unity;
 
 namespace Infrastructure.WorldManaging
@@ -9,53 +10,51 @@ namespace Infrastructure.WorldManaging
     public sealed class WorldManager : IWorldManager, ITickable
     {
         private readonly ITimeService _time;
-        
+        private readonly IObjectResolver _container;
+
         private readonly IDictionary<WorldType, WorldData> _worlds;
 
-        private World _worldInCreation;
-        private SystemsGroup _groupInCreation;
-        private WorldType _worldTypeInCreation;
         
+        private WorldType _worldTypeInCreation;
         private WorldType _currentWorldType;
 
-        public WorldManager(ITimeService time)
+        public WorldManager(ITimeService time, IObjectResolver container)
         {
             _time = time;
+            _container = container;
             _worlds = new Dictionary<WorldType, WorldData>(Enum.GetValues(typeof(WorldType)).Length);
         }
         
         public IWorldManager CreateWorld(WorldType type, bool updateByUnity)
         {
             _worldTypeInCreation = type;
-            _worldInCreation = World.Create();
-            _worldInCreation.UpdateByUnity = updateByUnity;
+            World world = World.Create();
+            world.UpdateByUnity = updateByUnity;
             
-            _groupInCreation = _worldInCreation.CreateSystemsGroup();
-            _worldInCreation.AddSystemsGroup( 0, _groupInCreation);
-            
+            WorldData data = new WorldData
+            {
+                Enabled = false,
+                World = world,
+                SystemsGroupCount = 0,
+            };
+
+            _worlds.Add(_worldTypeInCreation, data);
+
             return this;
         }
-        
-        public IWorldManager AddSystem<TSystem>() where TSystem : class, ISystem, new()
+
+        public IWorldManager AddSystemsGroup<TSystemsGroup>() where TSystemsGroup : class, ISystemsGroup
         {
-            TSystem system = new TSystem();
-            _groupInCreation.AddSystem(system);
+            TSystemsGroup group = _container.Resolve<TSystemsGroup>();
+            WorldData worldData = _worlds[_worldTypeInCreation];
+            worldData.SystemsGroupCount++;
+            group.Install(worldData.World);
             return this;
         }
 
         public void Build()
         {
-            WorldData data = new WorldData
-            {
-                Enabled = false,
-                World = _worldInCreation
-            };
-
-            _worlds.Add(_worldTypeInCreation, data);
-            
-            _worldInCreation = null;
-            _groupInCreation = null;
-            _worldTypeInCreation = default;
+            _worldTypeInCreation = WorldType.None;
         }
 
         public void SwitchTo(WorldType type)

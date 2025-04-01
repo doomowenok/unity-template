@@ -1,11 +1,9 @@
-using Scellecs.Morpeh;
-
 namespace Infrastructure.WorldManaging
 {
     public interface IWorldManager
     {
         IWorldManager CreateWorld(WorldType type, bool updateByUnity);
-        IWorldManager AddSystem<TSystem>() where TSystem : class, ISystem, new();
+        IWorldManager AddSystemsGroup<TSystemsGroup>() where TSystemsGroup : class, ISystemsGroup;
         void Build();
     }
 }

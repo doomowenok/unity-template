@@ -6,5 +6,6 @@ namespace Infrastructure.WorldManaging
     {
         public bool Enabled;
         public World World;
+        public int SystemsGroupCount;
     }
 }

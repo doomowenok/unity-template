@@ -222,9 +222,8 @@
     "com.unity.ext.nunit": {
       "version": "2.0.5",
       "depth": 1,
-      "source": "registry",
-      "dependencies": {},
-      "url": "https://packages.unity.com"
+      "source": "builtin",
+      "dependencies": {}
     },
     "com.unity.feature.2d": {
       "version": "2.0.1",
@@ -274,7 +273,7 @@
         "com.unity.ide.rider": "3.0.34",
         "com.unity.editorcoroutines": "1.0.0",
         "com.unity.performance.profile-analyzer": "1.2.3",
-        "com.unity.test-framework": "1.4.6",
+        "com.unity.test-framework": "1.5.1",
         "com.unity.testtools.codecoverage": "1.2.6"
       }
     },
@@ -285,7 +284,7 @@
       "dependencies": {
         "com.unity.cinemachine": "2.10.3",
         "com.unity.timeline": "1.8.8",
-        "com.unity.visualscripting": "1.9.5"
+        "com.unity.visualscripting": "1.9.6"
       }
     },
     "com.unity.feature.worldbuilding": {
@@ -296,7 +295,7 @@
         "com.unity.probuilder": "6.0.4",
         "com.unity.polybrush": "1.1.8",
         "com.unity.formats.fbx": "5.1.1",
-        "com.unity.terrain-tools": "5.1.2"
+        "com.unity.terrain-tools": "5.2.1"
       }
     },
     "com.unity.formats.alembic": {
@@ -560,7 +559,7 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.terrain-tools": {
-      "version": "5.1.2",
+      "version": "5.2.1",
       "depth": 1,
       "source": "registry",
       "dependencies": {
@@ -570,15 +569,14 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.test-framework": {
-      "version": "1.4.6",
+      "version": "1.5.1",
       "depth": 0,
-      "source": "registry",
+      "source": "builtin",
       "dependencies": {
         "com.unity.ext.nunit": "2.0.3",
         "com.unity.modules.imgui": "1.0.0",
         "com.unity.modules.jsonserialize": "1.0.0"
-      },
-      "url": "https://packages.unity.com"
+      }
     },
     "com.unity.test-framework.performance": {
       "version": "3.0.3",
@@ -632,7 +630,7 @@
       }
     },
     "com.unity.visualscripting": {
-      "version": "1.9.5",
+      "version": "1.9.6",
       "depth": 0,
       "source": "registry",
       "dependencies": {
