@@ -7,6 +7,7 @@ using Infrastructure.StateMachine.Installers;
 using Infrastructure.MVVM.Installers;
 using Infrastructure.Config.Installers;
 using Gameplay.Core;
+using Gameplay.Core.Installers;
 using Gameplay.Services.Physics;
 using Infrastructure.IdGenerator.Installers;
 using Infrastructure.Time.Installers;
@@ -41,6 +42,7 @@ namespace Gameplay.Boot
             
             // Core
             InstallBindings<GameplayInstaller>(builder);
+            InstallBindings<VehicleInstaller>(builder);
         }
 
         private static void InstallBindings<TInstaller>(IContainerBuilder builder) where TInstaller : IInstaller,  new() 

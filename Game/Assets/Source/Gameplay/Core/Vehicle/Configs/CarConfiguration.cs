@@ -8,5 +8,6 @@ namespace Gameplay.Core
         public string CarName;
         public CarDriveType DriveType;
         public AnimationCurve AccelerationCurve;
+        public float MaxPower;
     }
 }

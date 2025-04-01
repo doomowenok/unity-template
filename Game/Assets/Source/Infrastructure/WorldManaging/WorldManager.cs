@@ -48,7 +48,7 @@ namespace Infrastructure.WorldManaging
             TSystemsGroup group = _container.Resolve<TSystemsGroup>();
             WorldData worldData = _worlds[_worldTypeInCreation];
             worldData.SystemsGroupCount++;
-            group.Install(worldData.World);
+            group.Install(worldData);
             return this;
         }
 
