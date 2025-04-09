@@ -1,5 +1,4 @@
 using Cysharp.Threading.Tasks;
-using Gameplay.Core;
 using Infrastructure.StateMachine;
 using Infrastructure.StateMachine.States;
 
@@ -16,7 +15,7 @@ namespace Gameplay.Boot
 
         public async UniTask Enter()
         {
-            await _stateMachine.Enter<GameplayState, string>("Game");
+            
         }
 
         public UniTask Exit()
