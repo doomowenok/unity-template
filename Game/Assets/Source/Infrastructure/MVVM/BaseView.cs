@@ -22,6 +22,8 @@ namespace Infrastructure.MVVM
         {
             gameObject.SetActive(false);
         }
+        
+        public virtual void ForceUpdate() { }
 
         public virtual void Release()
         {

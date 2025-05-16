@@ -72,7 +72,7 @@ namespace Gameplay.Services.UI
                     else
                     {
                         result.AppendLine("\t\t\t\tcase UIViewType." + _windowType + ":");
-                        result.AppendLine($"\t\t\t\t\tUnsubscribe<{_baseViewName}, {_viewModelName}>(config.UIData[viewType].Name);");
+                        result.AppendLine($"\t\t\t\t\tUnsubscribe<{_baseViewName}, {_viewModelName}>();");
                         result.AppendLine("\t\t\t\t\tbreak;");
                     }
                 }

@@ -1,3 +1,4 @@
+using Gameplay.Core;
 using VContainer;
 using VContainer.Unity;
 using Infrastructure.Pool.Installers;
@@ -7,6 +8,8 @@ using Infrastructure.StateMachine.Installers;
 using Infrastructure.MVVM.Installers;
 using Infrastructure.Config.Installers;
 using Gameplay.Services.Physics;
+using Gameplay.Services.SaveLoad;
+using Gameplay.Services.UI;
 using Infrastructure.IdGenerator.Installers;
 using Infrastructure.Time.Installers;
 
@@ -37,6 +40,11 @@ namespace Gameplay.Boot
 
             // Services
             InstallBindings<PhysicsInstaller>(builder);
+            InstallBindings<UIInstaller>(builder);
+            InstallBindings<SaveLoadInstaller>(builder);
+            
+            // Core
+            InstallBindings<SettingsInstaller>(builder);
         }
 
         private static void InstallBindings<TInstaller>(IContainerBuilder builder) where TInstaller : IInstaller,  new() 

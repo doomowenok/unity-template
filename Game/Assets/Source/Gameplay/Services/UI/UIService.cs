@@ -26,7 +26,7 @@ namespace Gameplay.Services.UI
 
         public async UniTask Show(UIViewType viewType)
         {
-            UIConfig config = _configProvider.GetConfig<UIConfig>();
+            UIConfig config = _configProvider.GetConfig<UIConfig>("UI");
 
             switch (viewType)
             {
@@ -56,6 +56,8 @@ namespace Gameplay.Services.UI
             TViewModel viewModel = _context.Resolve<TViewModel>();
             view.Subscribe();
             viewModel.Subscribe();
+            view.ForceUpdate();
+            view.Show();
             
             _activeViews.Add(typeof(TView), view);
         }

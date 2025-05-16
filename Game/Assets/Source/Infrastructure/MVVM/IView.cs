@@ -8,5 +8,8 @@ namespace Infrastructure.MVVM
         GameObject ViewObject { get; }
         void Subscribe();
         void Unsubscribe();
+        void ForceUpdate();
+        void Show();
+        void Hide();
     }
 }

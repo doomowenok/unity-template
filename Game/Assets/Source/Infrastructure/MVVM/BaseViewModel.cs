@@ -8,4 +8,10 @@ namespace Infrastructure.MVVM
         public abstract void Subscribe();
         public abstract void Unsubscribe();
     }
+    
+    public abstract class BaseViewModel: IViewModel
+    {
+        public abstract void Subscribe();
+        public abstract void Unsubscribe();
+    }
 }

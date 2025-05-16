@@ -3,6 +3,7 @@ using Infrastructure.Pool;
 using Cysharp.Threading.Tasks;
 using Infrastructure.Resource;
 using VContainer;
+using VContainer.Unity;
 
 namespace Infrastructure.MVVM.Factory
 {
@@ -28,7 +29,7 @@ namespace Infrastructure.MVVM.Factory
             }
 
             instance.transform.SetParent(parent);
-            _context.Inject(instance);
+            _context.InjectGameObject(instance.gameObject);
             return instance;
         }
 
