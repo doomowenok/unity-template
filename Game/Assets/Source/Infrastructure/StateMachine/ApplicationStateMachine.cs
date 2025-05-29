@@ -15,7 +15,6 @@ namespace Infrastructure.StateMachine
 
         public void AddState<TState>(TState instance) where TState : class, IExitableState
         {
-            Debug.Log(instance);
             _states.Add(typeof(TState), instance);
         } 
 

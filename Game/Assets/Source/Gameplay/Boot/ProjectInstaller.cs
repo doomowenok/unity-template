@@ -1,4 +1,5 @@
 using Gameplay.Core;
+using Gameplay.Services.Audio;
 using VContainer;
 using VContainer.Unity;
 using Infrastructure.Pool.Installers;
@@ -12,11 +13,14 @@ using Gameplay.Services.SaveLoad;
 using Gameplay.Services.UI;
 using Infrastructure.IdGenerator.Installers;
 using Infrastructure.Time.Installers;
+using UnityEngine;
 
 namespace Gameplay.Boot
 {
     public sealed class ProjectInstaller : LifetimeScope
     {
+        [SerializeField] private AudioService _audioService;
+        
         protected override void Awake()
         {
             base.Awake();
@@ -25,6 +29,9 @@ namespace Gameplay.Boot
 
         protected override void Configure(IContainerBuilder builder)
         {
+            // MonoProviders
+            builder.RegisterInstance<AudioService>(_audioService).AsImplementedInterfaces();
+            
             // States
             builder.Register<BootState>(Lifetime.Singleton).AsSelf();
 
