@@ -18,12 +18,12 @@ namespace Gameplay.Core
         
         public void LoadSave()
         {
-            if (_savingService.TryLoad(SettingsConstants.SoundSaveKey, out float soundVolume))
+            if (_savingService.TryLoadSimple<float>(SettingsConstants.SoundSaveKey, out float soundVolume))
             {
                 SoundVolume.Value = soundVolume;
             }
 
-            if (_savingService.TryLoad(SettingsConstants.MusicSaveKey, out float musicVolume))
+            if (_savingService.TryLoadSimple<float>(SettingsConstants.MusicSaveKey, out float musicVolume))
             {
                 MusicVolume.Value = musicVolume;
             }

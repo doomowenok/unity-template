@@ -2,7 +2,9 @@
 {
     public interface ISavingService
     {
-        bool TryLoad<TData>(string key, out TData save);
-        void Save<TData>( string key, TData data);
+        bool TryLoadComplex<TData>(string key, out TData save);
+        bool TryLoadSimple<TData>(string key, out TData save);
+        void SaveComplex<TData>(string key, TData data);
+        bool SaveSimple<TData>(string key, TData save);
     }
 }
