@@ -15,7 +15,6 @@ namespace Infrastructure.Config
         {
             if (_cachedConfigs.TryGetValue(typeof(TConfig), out var collection) && collection.Count > 0)
             {
-                Debug.Log($"Get cached config for {typeof(TConfig)}.");
                 return collection.First() as TConfig;
             }
 
@@ -29,7 +28,6 @@ namespace Infrastructure.Config
 
             _cachedConfigs.Add(typeof(TConfig), configs.Cast<ScriptableObject>().ToList());
 
-            Debug.Log($"Get {typeof(TConfig).Name} config and add to cache.");
             return configs.First();
         }
 
@@ -37,7 +35,6 @@ namespace Infrastructure.Config
         {
             if (_cachedConfigs.TryGetValue(typeof(TConfig), out var collection) && collection.Count > 0)
             {
-                Debug.Log($"Get cached config for {typeof(TConfig)}.");
                 return collection.First() as TConfig;
             }
             
@@ -51,7 +48,6 @@ namespace Infrastructure.Config
             
             _cachedConfigs.Add(typeof(TConfig), configs.Cast<ScriptableObject>().ToList());
 
-            Debug.Log($"Get {typeof(TConfig).Name} config and add to cache.");
             return configs.First();
         }
 
@@ -59,7 +55,6 @@ namespace Infrastructure.Config
         {
             if (_cachedConfigs.TryGetValue(typeof(TConfig), out var collection) && collection.Count > 0)
             {
-                Debug.Log($"Get cached configs for {typeof(TConfig)}.");
                 return collection.Cast<TConfig>();
             }
             
@@ -73,7 +68,6 @@ namespace Infrastructure.Config
             
             _cachedConfigs.Add(typeof(TConfig), configs.Cast<ScriptableObject>().ToList());
 
-            Debug.Log($"Get {typeof(TConfig).Name} config and add to cache.");
             return configs;
         }
 
@@ -81,7 +75,6 @@ namespace Infrastructure.Config
         {
             if (_cachedConfigs.TryGetValue(typeof(TConfig), out var collection) && collection.Count > 0)
             {
-                Debug.Log($"Get cached configs for {typeof(TConfig)}.");
                 return collection.Cast<TConfig>();
             }
             
@@ -95,7 +88,6 @@ namespace Infrastructure.Config
             
             _cachedConfigs.Add(typeof(TConfig), configs.Cast<ScriptableObject>().ToList());
 
-            Debug.Log($"Get {typeof(TConfig).Name} config and add to cache.");
             return configs;
         }
     }
