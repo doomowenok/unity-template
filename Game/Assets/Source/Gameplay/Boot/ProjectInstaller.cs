@@ -1,4 +1,3 @@
-using Gameplay.Core;
 using Gameplay.Services.Audio;
 using VContainer;
 using VContainer.Unity;
@@ -9,9 +8,11 @@ using Infrastructure.StateMachine.Installers;
 using Infrastructure.MVVM.Installers;
 using Infrastructure.Config.Installers;
 using Gameplay.Services.Physics;
-using Gameplay.Services.SaveLoad;
 using Gameplay.Services.UI;
+using Infrastructure.EntityWorldManager.Installers;
 using Infrastructure.IdGenerator.Installers;
+using Infrastructure.Localization.Installers;
+using Infrastructure.SaveLoad;
 using Infrastructure.Time.Installers;
 using UnityEngine;
 
@@ -44,14 +45,15 @@ namespace Gameplay.Boot
             InstallBindings<ConfigProviderInstaller>(builder);
             InstallBindings<TimeServiceInstaller>(builder);
             InstallBindings<IdGeneratorInstaller>(builder);
+            InstallBindings<EntityWorldManagerInstaller>(builder);
 
             // Services
             InstallBindings<PhysicsInstaller>(builder);
             InstallBindings<UIInstaller>(builder);
             InstallBindings<SaveLoadInstaller>(builder);
+            InstallBindings<LocalizationInstaller>(builder);
             
             // Core
-            InstallBindings<SettingsInstaller>(builder);
         }
 
         private static void InstallBindings<TInstaller>(IContainerBuilder builder) where TInstaller : IInstaller,  new() 

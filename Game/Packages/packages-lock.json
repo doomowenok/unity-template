@@ -23,6 +23,13 @@
       "dependencies": {},
       "hash": "8042b29ff87dd5506d7aad72bd6d8d7405985f27"
     },
+    "com.scellecs.morpeh": {
+      "version": "https://github.com/scellecs/morpeh.git?path=Scellecs.Morpeh",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {},
+      "hash": "e33105491fe0754d9cccb302dace3d8641681d29"
+    },
     "com.unity.2d.animation": {
       "version": "12.0.2",
       "depth": 1,
